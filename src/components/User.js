@@ -2,8 +2,11 @@ import React from 'react';
 import { userInfo } from 'os';
 
 class User extends React.Component{
-    state = {
-      waiting_for: true
+    constructor(props) {
+      super(props);
+      this.state = { 
+        waiting_for: true
+       };
     }
 
     updateWait = () => {
@@ -18,11 +21,6 @@ class User extends React.Component{
             })
         }
     };
-  
-    constructor(props) {
-        super(props)
-        console.log("1")
-    }
     componentDidMount() {
         console.log("3 component rendered")
     }

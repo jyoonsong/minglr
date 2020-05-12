@@ -1,5 +1,6 @@
 import React from "react";
 import User from "../components/User";
+import axios from 'axios'
 
 function renderUsers(user) {
     return <User key={user.id} 
@@ -9,14 +10,37 @@ function renderUsers(user) {
                 />
 }
 
-function Approach({ users }) { 
-  return (
-    <div>
-        <h3>Approach</h3>
-        <div>
-            {users.map(renderUsers)}
-        </div>
-    </div>
-)}
+class Approach extends React.Component { 
+    constructor(props) {
+        super(props);
+        this.state = { 
+          isLoading: true,
+          users: []
+        };
+    }
+    getUsers = async () => {
+      const { data } = await axios.get('/api/v1/users')
+      console.log(data)
+      this.setState({ 
+        users: data,
+        isLoading: false
+      })
+    }
+
+    componentDidMount() {
+      this.getUsers();
+    }
+    render() {
+        const { users, isLoading } = this.state;
+        return(<div>
+            {isLoading ? "Loading..." : (
+            <div>
+                <h3>Approach</h3>
+                {users.map(renderUsers)}
+            </div>
+            )}
+        </div>)
+    }
+}
 
 export default Approach;
