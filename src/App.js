@@ -12,27 +12,29 @@ class App extends React.Component {
     this.state = { 
       isLoggedIn: false,
       user: {},
+      isLoading: true
      };
   }
 
   handleLogin = (data) => {
     this.setState({
       isLoggedIn: true,
-      user: data.user
+      user: data.user,
+      isLoading: false
     })
   }
   handleLogout = () => {
     this.setState({
-    isLoggedIn: false,
-    user: {}
+      isLoggedIn: false,
+      user: {},
+      isLoading: false
     })
   }
 
-  loginStatus = () => {
-    axios.get('/api/v1/logged_in', 
+  loginStatus = async () => {
+    await axios.get('/api/v1/logged_in', 
     {withCredentials: true})
     .then(response => {
-      console.log(response)
       if (response.data.logged_in) {
         this.handleLogin(response)
       } 
@@ -55,7 +57,7 @@ class App extends React.Component {
             <Route 
               exact path='/' 
               render={props => (
-                    <Home {...props} loggedInStatus={this.state.isLoggedIn}/>
+                    <Home {...props} loggedInStatus={this.state.isLoggedIn} isLoading={this.state.isLoading}/>
                     )}
             />
             <Route 

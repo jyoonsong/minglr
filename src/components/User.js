@@ -1,42 +1,37 @@
 import React from 'react';
-import { userInfo } from 'os';
+import axios from 'axios'
 
 class User extends React.Component{
     constructor(props) {
       super(props);
       this.state = { 
-        waiting_for: true
+        waiting_for: this.props.waiting
        };
     }
 
-    updateWait = () => {
+    updateWait = async (id) => {
         if (this.state.waiting_for) {
+            await axios.delete('/api/v1/waits/' + id )
             this.setState({
                 waiting_for: false
             })
         }
         else {
+            await axios.post('/api/v1/waits/' + id)
             this.setState({
                 waiting_for: true
             })
         }
     };
-    componentDidMount() {
-        console.log("3 component rendered")
-    }
-    componentDidUpdate() {
-        console.log("3 I just updated")
-    }
-    componentWillUnmount() {
-        console.log("Goodbye, I'm gone")
-    }
-  
     render() {
-        const { firstName, lastName, affiliation } = this.props;
+        const { waiting_for } = this.state;
+        const { id, firstName, lastName, affiliation, image, link } = this.props;
         return (
-            <div onClick={this.updateWait}>
+            <div onClick={() => this.updateWait(id)} className={waiting_for ? "red" : ""}>
+                <img src={!(image) ? "default.jpg" : ""} alt={firstName} />
                 <h4>{firstName} {lastName}</h4>
                 <p>{affiliation}</p>
+                <p>{waiting_for ? "waiting..." : "wait"}</p>
             </div>
     )};
 }

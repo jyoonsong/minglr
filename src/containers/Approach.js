@@ -2,14 +2,6 @@ import React from "react";
 import User from "../components/User";
 import axios from 'axios'
 
-function renderUsers(user) {
-    return <User key={user.id} 
-                firstName={user.first_name} 
-                lastName={user.last_name} 
-                affiliation={user.affiliation}
-                />
-}
-
 class Approach extends React.Component { 
     constructor(props) {
         super(props);
@@ -22,9 +14,21 @@ class Approach extends React.Component {
       const { data } = await axios.get('/api/v1/users')
       console.log(data)
       this.setState({ 
-        users: data,
-        isLoading: false
+        isLoading: false,
+        users: data.users
       })
+    }
+
+    renderUsers = (user) => {
+        return <User key={user.id} 
+                    id={user.id}
+                    firstName={user.first_name} 
+                    lastName={user.last_name} 
+                    affiliation={user.affiliation}
+                    image={user.image}
+                    link={user.link}
+                    waiting={user.waiting_for}
+                    />
     }
 
     componentDidMount() {
@@ -36,7 +40,7 @@ class Approach extends React.Component {
             {isLoading ? "Loading..." : (
             <div>
                 <h3>Approach</h3>
-                {users.map(renderUsers)}
+                {users.map(this.renderUsers)}
             </div>
             )}
         </div>)

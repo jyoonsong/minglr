@@ -21,17 +21,21 @@ class Home extends React.Component {
             <header className="App-header">
                 <div>
                     <nav>
-                      { 
-                        this.props.loggedInStatus ? 
+                      { this.props.isLoading? "Loading..." :
                         <div>
-                          <Link to='/logout' onClick={this.handleClick}>Log Out</Link> 
-                          <Approach />
-                          <Greet />
-                        </div>
-                        : 
-                        <div>
-                          <Link to='/login'>Log In</Link><br></br>
-                          <Link to='/signup'>Sign Up</Link>
+                        { 
+                          this.props.loggedInStatus ? 
+                          <div>
+                            <Link to='/logout' onClick={this.handleClick}>Log Out</Link> 
+                            <Approach />
+                            <Greet />
+                          </div>
+                          : 
+                          <div>
+                            <Link to='/login'>Log In</Link><br></br>
+                            <Link to='/signup'>Sign Up</Link>
+                          </div>
+                        }
                         </div>
                       }
                     </nav>
