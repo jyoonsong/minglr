@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from "axios";
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+
+import './styles/base.scss';
 
 class App extends React.Component {
 
