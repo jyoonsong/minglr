@@ -25,7 +25,6 @@ class Show extends React.Component{
         return <UserDataUser
                     key={user.id}
                     user={user}
-                    createWait={this.props.createWait}
                 />
     }
 
@@ -55,7 +54,6 @@ class Show extends React.Component{
                                     <UserDataUser
                                         key={currentUser.id}
                                         user={currentUser}
-                                        createWait={this.props.createWait}
                                     />
                                     :
                                     isNoOne

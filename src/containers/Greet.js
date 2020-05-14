@@ -9,6 +9,7 @@ class Greet extends React.Component {
           isLoading: true,
           users: []
         };
+        this.getUsers = this.getUsers.bind(this)
     }
     getUsers = async () => {
       const { data } = await axios.get('/api/v1/waited_by_users')
@@ -27,6 +28,7 @@ class Greet extends React.Component {
                     affiliation={user.affiliation}
                     image={user.image}
                     link={user.link}
+                    getUsers={this.getUsers}
                     />
     }
     componentDidMount() {
@@ -41,7 +43,10 @@ class Greet extends React.Component {
                     <h2>Greet</h2>
                     <div className="user_list">
                         <h4>People who want to talk to you</h4>
-                        {users.map(this.renderUsers)}
+                        {
+                            users.length <= 0 ? "No one yet.":
+                            users.map(this.renderUsers)
+                        }
                     </div>
                 </div>
                 )}
