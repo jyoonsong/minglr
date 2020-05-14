@@ -5,7 +5,6 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      username: '',
       email: '',
       password: '',
       errors: ''
@@ -20,17 +19,20 @@ handleChange = (event) => {
 handleSubmit = (event) => {
     event.preventDefault()
     const {email, password} = this.state
-let user = {
-      email: email,
-      password: password
-    }
-    
-axios.post('/api/v1/login', {user}, {withCredentials: true})
+
+    let user = {
+        email: email,
+        password: password
+      }
+        
+    axios.post('/api/v1/login', {user}, {withCredentials: true})
     .then(response => {
       if (response.data.logged_in) {
         this.props.handleLogin(response.data)
         this.redirect()
-      } else {
+      } 
+      else {
+        console.log(response)
         this.setState({
           errors: response.data.errors
         })

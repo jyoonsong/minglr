@@ -11,7 +11,7 @@ class Signup extends Component {
     handleChange = (event) => {
         const {name, value} = event.target
         this.setState({
-        [name]: value
+            [name]: value
         })
     };
     handleSubmit = (event) => {
@@ -27,7 +27,7 @@ class Signup extends Component {
             this.redirect()
         } else {
             this.setState({
-            errors: response.data.errors
+                errors: response.data.errors
             })
         }
         })
