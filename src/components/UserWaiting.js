@@ -11,7 +11,7 @@ class UserWaiting extends React.Component{
 
     updateWait = async (id, link) => {
         if (this.state.waited_by) {
-            await axios.delete('/api/v1/waits/' + id )
+            await axios.delete('/api/v1/waits/' + id + '/destroy/greet')
             this.setState({
                 waited_by: false
             })

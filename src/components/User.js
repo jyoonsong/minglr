@@ -1,13 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 
 class User extends React.Component{
-    constructor(props) {
-      super(props);
-    }
 
     render() {
-        const { id, first_name, last_name, affiliation, image, waiting_for, me } = this.props.user;
+        const { first_name, last_name, affiliation, image, waiting_for, me } = this.props.user;
         return (
             <div>
             {me ? "" :
