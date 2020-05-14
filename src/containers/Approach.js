@@ -78,7 +78,7 @@ class Approach extends React.Component {
 
     getUsers = async () => {
       const { data } = await axios.get('/api/v1/users')
-      const currentUser = data.users.find(user => user.me == true);
+      const currentUser = data.users.find(user => user.me === true);
       
       this.setState({ 
         isLoading: false,
