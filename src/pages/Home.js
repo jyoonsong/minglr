@@ -5,6 +5,9 @@ import Approach from "../containers/Approach";
 import Greet from "../containers/Greet";
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
   handleClick = async () => {
     await axios.delete('/api/v1/logout', {withCredentials: true})
@@ -16,31 +19,33 @@ class Home extends React.Component {
   }
 
   render() {
+    const { isLoading, loggedInStatus } = this.props;
     return (
         <div className="App">
-            <header className="App-header">
-                <div>
-                    <nav>
-                      { this.props.isLoading? "Loading..." :
-                        <div>
-                        { 
-                          this.props.loggedInStatus ? 
-                          <div>
-                            <Link to='/logout' onClick={this.handleClick}>Log Out</Link> 
-                            <Approach />
-                            <Greet />
-                          </div>
-                          : 
-                          <div>
-                            <Link to='/login'>Log In</Link><br></br>
-                            <Link to='/signup'>Sign Up</Link>
-                          </div>
-                        }
-                        </div>
-                      }
-                    </nav>
-                </div>
-            </header>
+          { isLoading? "Loading..." :
+            <div>
+            { 
+              loggedInStatus ? 
+              <div>
+                <nav>
+                  <img src={require("../images/logo.png")} alt="logo"/>
+                  <div>
+                    <Link to='/logout' onClick={this.handleClick}>Log Out</Link> 
+                  </div>
+                </nav>
+                <main>
+                  <Approach/>
+                  <Greet />
+                </main>
+              </div>
+              : 
+              <div>
+                <Link to='/login'>Log In</Link><br></br>
+                <Link to='/signup'>Sign Up</Link>
+              </div>
+            }
+            </div>
+          }
         </div>
   )};
 }
