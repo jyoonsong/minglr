@@ -5,9 +5,6 @@ import Approach from "../containers/Approach";
 import Greet from "../containers/Greet";
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleClick = async () => {
     await axios.delete('/api/v1/logout', {withCredentials: true})
@@ -30,6 +27,7 @@ class Home extends React.Component {
                 <nav>
                   <img src={require("../images/logo.png")} alt="logo"/>
                   <div>
+                    <a href="main.zoom.link">Go Back to Conference</a>
                     <Link to='/logout' onClick={this.handleClick}>Log Out</Link> 
                   </div>
                 </nav>
