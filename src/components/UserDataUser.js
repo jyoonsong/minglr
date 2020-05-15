@@ -15,7 +15,7 @@ class UserDataUser extends React.Component {
 
         const isWaitingFor = waiting_for ? 'waiting_for' : '';
         const isMe = me ? 'me' : '';
-        const isWaiting = waiting_for ? "waiting..." : "wait";
+        const isWaiting = waiting_for ? "waiting..." : "";
 
         return (
             <div className={`no-hover user ${isMe} ${isWaitingFor}`}>

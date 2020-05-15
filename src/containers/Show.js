@@ -41,7 +41,7 @@ class Show extends React.Component{
 
         return (
             <div className="user_data">
-                <div className="container show">
+                <div className="show">
                     <div className="user_list">
                         <img src={(user.image) ? user.image : require("../images/default_user.jpeg")} alt={user.first_name} />
                         <h3>{user.first_name} {user.last_name}</h3>

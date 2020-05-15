@@ -37,12 +37,12 @@ class Greet extends React.Component {
     render () {
         const { users, isLoading } = this.state;
         return (
-            <div className="greet container">
+            <div className="greet">
                 {isLoading ? "Loading..." : (
-                <div>
-                    <h2>Greet</h2>
+                <div className="container">
                     <div className="user_list">
-                        <h4>People who want to talk to you</h4>
+                        <h2>People who want to talk to you...</h2>
+                        <h4></h4>
                         {
                             users.length <= 0 ? "No one yet.":
                             users.map(this.renderUsers)

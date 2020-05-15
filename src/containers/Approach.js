@@ -101,16 +101,16 @@ class Approach extends React.Component {
     render() {
         const { user, users, isLoading, currentUser } = this.state;
         return(
-        <div className="approach container">
+        <div className="approach">
             {isLoading ? "Loading..." : (
-                <div>
-                    <h2>Approach</h2>
+                <div className="container">
                     <div className="user_list">
+                        <h2>I'd like to talk to...</h2>
                         <h4>Search Result</h4>
                         {users.map(this.renderUsers)}
                     </div>
                     {user.id < 0 ? 
-                        <div></div>
+                        <div className="user_data"></div>
                         :
                         <Show 
                             user={user} 

@@ -14,7 +14,7 @@ class User extends React.Component{
                     <div className="user_info">
                         <strong>{first_name} {last_name}</strong>
                         <span>{affiliation}</span>
-                        <span className="badge">{waiting_for ? "waiting..." : "wait"}</span>
+                        <span className="badge">{waiting_for ? "waiting..." : ""}</span>
                     </div>
                 </div>
             }

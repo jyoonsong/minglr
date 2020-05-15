@@ -30,7 +30,6 @@ class UserWaiting extends React.Component{
                 <div className="user_info">
                     <strong>{firstName} {lastName}</strong>
                     <span>{affiliation}</span>
-                    <span className="badge">click to talk</span>
                 </div>
             </div>
     )};
