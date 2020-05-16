@@ -13,13 +13,13 @@ class Approach extends React.Component {
         this.state = { 
           isLoading: true,
           users: [],
-          user: {
+          selectedUser: {
               id: -1
-          },
-          currentUser: {}
+          }
         };
     }
 
+    // create & destroy wait 
     createWait = async (user) => {
         const { users } = this.state;
 
@@ -40,8 +40,9 @@ class Approach extends React.Component {
             };
     
             this.setState({
+                isLoading: false,
                 users: nextUsers,
-                user: nextUsers[index]
+                selectedUser: nextUsers[index]
             });
         }
     }
@@ -63,28 +64,31 @@ class Approach extends React.Component {
             };
     
             this.setState({
+                isLoading: false,
                 users: nextUsers,
-                user: nextUsers[index]
+                selectedUser: nextUsers[index]
             });
         }
     }
 
+    // on click
     handleUpdate = (user) => {
-        console.log(user);
-        this.setState({
-            user: user
-        });
+        this.setState(prevState => ({
+            isLoading: false,
+            selectedUser: user,
+            users: [...prevState.users]
+        }));
     }
 
+    // get list of users
     getUsers = async () => {
-      const { data } = await axios.get('/api/v1/users')
-      const currentUser = data.users.find(user => user.me === true);
-      
-      this.setState({ 
+      const { data } = await axios.get('/api/v1/approach')
+      const newUsers = data.waiting_for_users.concat(data.rest)
+      this.setState(prevState => ({
         isLoading: false,
-        users: data.users,
-        currentUser: currentUser
-      })
+        users: newUsers,
+        selectedUser: {...prevState.selectedUser}
+      }))
     }
 
     renderUsers = (user) => {
@@ -99,7 +103,9 @@ class Approach extends React.Component {
       this.getUsers();
     }
     render() {
-        const { user, users, isLoading, currentUser } = this.state;
+        const { currentUser } = this.props;
+        const { selectedUser, users, isLoading } = this.state;
+        console.log(currentUser)
         return(
         <div className="approach">
             {isLoading ? "Loading..." : (
@@ -109,12 +115,12 @@ class Approach extends React.Component {
                         <h4>Search Result</h4>
                         {users.map(this.renderUsers)}
                     </div>
-                    {user.id < 0 ? 
+                    {selectedUser.id < 0 ? 
                         <div className="user_data"></div>
                         :
                         <Show 
-                            user={user} 
-                            key={user.id} 
+                            user={selectedUser} 
+                            key={selectedUser.id} 
                             createWait={this.createWait}
                             destroyWait={this.destroyWait}
                             currentUser={currentUser}/>

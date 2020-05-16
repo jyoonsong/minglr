@@ -12,7 +12,7 @@ class Greet extends React.Component {
         this.getUsers = this.getUsers.bind(this)
     }
     getUsers = async () => {
-      const { data } = await axios.get('/api/v1/waited_by_users')
+      const { data } = await axios.get('/api/v1/greet')
       this.setState({ 
         isLoading: false,
         users: data.waited_by_users

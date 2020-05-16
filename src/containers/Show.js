@@ -14,6 +14,7 @@ class Show extends React.Component{
 
     getUserData = async (id) => {
         const { data } = await axios.get('api/v1/users/' + id)
+        console.log(id)
         console.log(data)
         this.setState({
             isLoading: false,
