@@ -29,7 +29,6 @@ handleSubmit = (event) => {
     .then(response => {
       if (response.data.logged_in) {
         this.props.handleLogin(response.data)
-        this.redirect()
       } 
       else {
         console.log(response)
@@ -40,9 +39,7 @@ handleSubmit = (event) => {
     })
     .catch(error => console.log('api errors:', error))
   };
-redirect = () => {
-    this.props.history.push('/')
-  }
+  
 handleErrors = () => {
     return (
       <div>
