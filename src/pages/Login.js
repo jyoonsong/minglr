@@ -29,6 +29,7 @@ handleSubmit = (event) => {
     .then(response => {
       if (response.data.logged_in) {
         this.props.handleLogin(response.data)
+        this.props.history.push('/')
       } 
       else {
         console.log(response)

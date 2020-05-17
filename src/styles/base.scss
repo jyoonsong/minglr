@@ -165,4 +165,25 @@ nav {
     }
 }
 
+.modal-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    .modal {
+        background-color: white;
+        max-width: 100%;
+        width: 800px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 500px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        padding: 2rem;
+    }
+}
 

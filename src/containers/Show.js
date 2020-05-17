@@ -14,18 +14,17 @@ class Show extends React.Component{
 
     getUserData = async (id) => {
         const { data } = await axios.get('api/v1/users/' + id)
-        console.log(id)
-        console.log(data)
-        this.setState({
+        this.setState(prevState => ({
             isLoading: false,
             users: data.users
-        })
+        }))
     }
 
     renderUserData = (user) => {
         return <UserDataUser
                     key={user.id}
                     user={user}
+                    me={false}
                 />
     }
 
@@ -55,6 +54,7 @@ class Show extends React.Component{
                                     <UserDataUser
                                         key={currentUser.id}
                                         user={currentUser}
+                                        me={true}
                                     />
                                     :
                                     isNoOne

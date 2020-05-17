@@ -11,7 +11,8 @@ class UserDataUser extends React.Component {
     
     render() {
         const { waiting_for } = this.state;
-        const { first_name, last_name, affiliation, image, me } = this.props.user;
+        const { first_name, last_name, affiliation, image } = this.props.user;
+        const { me } = this.props;
 
         const isWaitingFor = waiting_for ? 'waiting_for' : '';
         const isMe = me ? 'me' : '';

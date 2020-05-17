@@ -9,21 +9,30 @@ class UserWaiting extends React.Component{
        };
     }
 
-    updateWait = async (id, link) => {
+    updateWait = async (id) => {
         if (this.state.waited_by) {
-            await axios.delete('/api/v1/waits/' + id + '/destroy/greet')
-            this.setState({
-                waited_by: false
+            await axios.delete('/api/v1/match/' + id)
+            .then(response => {
+                if (response.data.success) {
+                    this.setState({
+                        waited_by: false
+                    })
+                    const text = response.data.success;
+                    this.props.showModal(text)
+                    localStorage.setItem("text", text);
+                    console.log(localStorage.getItem("text"))
+                }
+                else {
+                    alert(response.data.error)
+                }
             })
-            var win = window.open(link, '_blank');
-            win.focus();
         }
     };
     render() {
         const { waited_by } = this.state;
-        const { id, firstName, lastName, affiliation, image, link } = this.props;
+        const { id, firstName, lastName, affiliation, image } = this.props;
         return (
-            <div onClick={() => this.updateWait(id, link)} className={waited_by ? "user" : "user invisible"}>
+            <div onClick={() => this.updateWait(id)} className={waited_by ? "user" : "user invisible"}>
                 <div className="user_image">
                     <img src={(image) ? image : require("../images/default_user.jpeg")} alt={firstName} />
                 </div>

@@ -20,18 +20,18 @@ class Signup extends Component {
         let user = {
             email, password, first_name, last_name, affiliation, link, image
         }
-    axios.post('/api/v1/users', {user}, {withCredentials: true})
-        .then(response => {
-        if (response.data.status === 'created') {
-            this.props.handleLogin(response.data)
-            this.redirect()
-        } else {
-            this.setState({
-                errors: response.data.errors
+        axios.post('/api/v1/users', {user}, {withCredentials: true})
+            .then(response => {
+            if (response.data.status === 'created') {
+                this.props.handleLogin(response.data)
+                this.redirect()
+            } else {
+                this.setState({
+                    errors: response.data.errors
+                })
+            }
             })
-        }
-        })
-        .catch(error => console.log('api errors:', error))
+            .catch(error => console.log('api errors:', error))
     };
     redirect = () => {
         this.props.history.push('/')

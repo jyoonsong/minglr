@@ -3,79 +3,39 @@ import axios from "axios";
 import {Link} from 'react-router-dom'
 import Approach from "../containers/Approach";
 import Greet from "../containers/Greet";
-import Login from "./Login";
 
 class Home extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      isLoading: true,
-      isLoggedIn: false,
-      currentUser: {}
-    }
-    
+     this.handleClick = this.handleClick.bind(this)
   }
 
-  // LOGIN
-  updateCurrentUser = (data) => {
-    this.setState({
-      isLoading: false,
-      isLoggedIn: true,
-      currentUser: data.data.user
-    })
-  }
-
-  deleteCurrentUser = async () => {
+  handleClick = async () => {
     await axios.delete('/api/v1/logout', {withCredentials: true})
     .then(response => {
-      this.setState({
-        isLoading: false,
-        isLoggedIn: false,
-        currentUser: {}
-      })
-      this.props.history.push('/')
+      this.props.handleLogout()
+      this.props.history.push('/login')
     })
     .catch(error => console.log(error))
   }
 
 
-  loginStatus = async () => {
-    await axios.get('/api/v1/logged_in', 
-    {withCredentials: true})
-    .then(response => {
-      if (response.data.logged_in) {
-        this.updateCurrentUser(response)
-      } 
-      else {
-        this.deleteCurrentUser()
-      }
-    })
-    .catch(error => console.log('api errors:', error))
-  }
-
-  componentDidMount() {
-    this.loginStatus()
-  }
-
-
   render() {
-    const { isLoading, isLoggedIn, currentUser } = this.state;
-    const { history } = this.props;
+    const { isLoading, loggedInStatus, currentUser } = this.props;
 
-    console.log(currentUser)
     return (
         <div className="App">
           { isLoading? "Loading..." :
             <div>
             { 
-              isLoggedIn ? 
+              loggedInStatus ? 
               <div>
                 <nav>
                   <img src={require("../images/logo.png")} alt="logo"/>
                   <div>
                     <a href="main.zoom.link" target="_blank">Go Back to Main Room</a>
-                    <Link to='/login' onClick={this.deleteCurrentUser}>Log Out</Link> 
+                    <Link to='/' onClick={this.handleClick}>Log Out</Link> 
                   </div>
                 </nav>
                 <main>
@@ -87,7 +47,7 @@ class Home extends React.Component {
               </div>
               : 
               <div>
-                <Login history={history} handleLogin={this.updateCurrentUser} loggedInStatus={isLoggedIn} />
+              {this.props.history.push("/login")}
               </div>
             }
             </div>

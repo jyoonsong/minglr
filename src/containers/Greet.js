@@ -1,5 +1,6 @@
 import React from "react";
 import UserWaiting from "../components/UserWaiting";
+import Modal from "../components/Modal";
 import axios from 'axios'
 
 class Greet extends React.Component { 
@@ -7,16 +8,27 @@ class Greet extends React.Component {
         super(props);
         this.state = { 
           isLoading: true,
-          users: []
+          users: [],
+          text: localStorage.getItem("text") || ""
         };
         this.getUsers = this.getUsers.bind(this)
+        this.showModal = this.showModal.bind(this)
     }
+
+    showModal = (text) => {
+        this.setState(prevState => ({ 
+            ...prevState,
+            text: text
+        }))
+    }
+
     getUsers = async () => {
       const { data } = await axios.get('/api/v1/greet')
-      this.setState({ 
+      this.setState(prevState => ({ 
+        ...prevState,
         isLoading: false,
-        users: data.waited_by_users
-      })
+        users: data.waited_by_users,
+      }))
     }
 
     renderUsers = (user) => {
@@ -29,13 +41,14 @@ class Greet extends React.Component {
                     image={user.image}
                     link={user.link}
                     getUsers={this.getUsers}
+                    showModal={this.showModal}
                     />
     }
     componentDidMount() {
       this.getUsers();
     }
     render () {
-        const { users, isLoading } = this.state;
+        const { users, isLoading, text } = this.state;
         return (
             <div className="greet">
                 {isLoading ? "Loading..." : (
@@ -50,6 +63,7 @@ class Greet extends React.Component {
                     </div>
                 </div>
                 )}
+                {text.length > 0 ? <Modal text={text}/> : <div></div>}
             </div>
         )
     }

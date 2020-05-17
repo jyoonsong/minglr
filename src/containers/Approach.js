@@ -74,9 +74,9 @@ class Approach extends React.Component {
     // on click
     handleUpdate = (user) => {
         this.setState(prevState => ({
+            users: [...prevState.users],
             isLoading: false,
             selectedUser: user,
-            users: [...prevState.users]
         }));
     }
 
@@ -85,9 +85,9 @@ class Approach extends React.Component {
       const { data } = await axios.get('/api/v1/approach')
       const newUsers = data.waiting_for_users.concat(data.rest)
       this.setState(prevState => ({
+        selectedUser: {...prevState.selectedUser},
         isLoading: false,
         users: newUsers,
-        selectedUser: {...prevState.selectedUser}
       }))
     }
 
@@ -105,7 +105,6 @@ class Approach extends React.Component {
     render() {
         const { currentUser } = this.props;
         const { selectedUser, users, isLoading } = this.state;
-        console.log(currentUser)
         return(
         <div className="approach">
             {isLoading ? "Loading..." : (
